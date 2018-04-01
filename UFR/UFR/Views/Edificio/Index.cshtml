@@ -17,16 +17,23 @@
         <th>
             @Html.DisplayNameFor(model => model.Descricao)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao.Valor)
+        </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
     <tr>
         <td>
             @Html.DisplayFor(modelItem => item.Nome)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Descricao)
+            @Html.DisplayFor(modelItem => item.Descricao.Texto)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descricao.Valor)
         </td>
         <td>
             @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
@@ -34,6 +41,6 @@
             @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
         </td>
     </tr>
-}
+    }
 
 </table>

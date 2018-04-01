@@ -15,7 +15,8 @@ namespace UFR.Models
         [BsonElement("Nome")]
         public string Nome { get; set; }
 
+        //O elemento Descricao é um Embedded Document
         [BsonElement("Descricao")]
-        public string Descricao { get; set; }
+        public Descricao Descricao { get; set; }
     }
 }
