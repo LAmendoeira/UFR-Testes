@@ -20,6 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Descricao.Valor)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Descricao.Opcoes)
+        </th>
         <th></th>
     </tr>
 
@@ -36,9 +39,17 @@
             @Html.DisplayFor(modelItem => item.Descricao.Valor)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            @foreach (var option in item.Descricao.Opcoes)
+            {
+            <p>@Html.DisplayFor(m => option)</p>
+                
+            }
+
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
             @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Delete", "Delete", routeValues: new { id = item.Id })
         </td>
     </tr>
     }

@@ -48,7 +48,18 @@ namespace UFR.Controllers
             try
             {
                 // TODO: Add insert logic here
+                var nome = Convert.ToString(collection["Nome"]);
+                var descTexto = Convert.ToString(collection["Descricao.Texto"]);
+                var descValor = Convert.ToInt32(collection["Descricao.Valor"]);
 
+                var doc = new BsonDocument
+                {
+                    { "Nome", nome } ,
+                    { "Descricao", new BsonDocument { { "Texto", descTexto }, { "Valor", descValor }, { "Opcoes", new BsonArray { "Opp", "Opp2" } } } }
+                };
+
+                //System.Diagnostics.Debug.WriteLine(doc.ToString());
+                dbContext.database.GetCollection<BsonDocument>("Edificios").InsertOne(doc);
                 return RedirectToAction("Index");
             }
             catch
@@ -80,19 +91,26 @@ namespace UFR.Controllers
         }
 
         // GET: Edificio/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(string id)
         {
-            return View();
+            var collection = dbContext.database.GetCollection<Edificio>("Edificios");
+            //var filter = Builders<Edificio>.Filter.Eq("_id", id);
+            var filter = Builders<Edificio>.Filter.Eq("_id", BsonObjectId.Create(id));
+
+            var edificio = dbContext.database.GetCollection<Edificio>("Edificios").Find(filter).ToList();
+            return View(edificio);
         }
 
         // POST: Edificio/Delete/5
         [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        public ActionResult Delete(string id, FormCollection collection)
         {
             try
             {
                 // TODO: Add delete logic here
 
+                var filter = Builders<BsonDocument>.Filter.Eq("_id", BsonObjectId.Create(id));
+                dbContext.database.GetCollection<BsonDocument>("Edificios").DeleteOne(filter);
                 return RedirectToAction("Index");
             }
             catch

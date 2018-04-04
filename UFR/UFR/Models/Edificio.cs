@@ -17,6 +17,7 @@ namespace UFR.Models
 
         //O elemento Descricao é um Embedded Document
         [BsonElement("Descricao")]
-        public Descricao Descricao { get; set; }
+        public virtual Descricao Descricao { get; set; }
+
     }
 }
